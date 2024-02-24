@@ -1,9 +1,11 @@
 #include "vulkanbase/VulkanBase.h"
 
-void VulkanBase::createFrameBuffers() {
+void VulkanBase::CreateFrameBuffers()
+{
 	swapChainFramebuffers.resize(swapChainImageViews.size());
-	for (size_t i = 0; i < swapChainImageViews.size(); i++) {
-		VkImageView attachments[] = {
+	for (size_t i = 0; i < swapChainImageViews.size(); i++) 
+	{
+		const VkImageView attachments[] = {
 			swapChainImageViews[i]
 		};
 
@@ -16,7 +18,8 @@ void VulkanBase::createFrameBuffers() {
 		framebufferInfo.height = swapChainExtent.height;
 		framebufferInfo.layers = 1;
 
-		if (vkCreateFramebuffer(device, &framebufferInfo, nullptr, &swapChainFramebuffers[i]) != VK_SUCCESS) {
+		if (vkCreateFramebuffer(device, &framebufferInfo, nullptr, &swapChainFramebuffers[i]) != VK_SUCCESS) 
+		{
 			throw std::runtime_error("failed to create framebuffer!");
 		}
 	}
@@ -114,8 +117,8 @@ void VulkanBase::createGraphicsPipeline() {
 
 	pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
 
-	VkPipelineShaderStageCreateInfo vertShaderStageInfo = createVertexShaderInfo();
-	VkPipelineShaderStageCreateInfo fragShaderStageInfo = createFragmentShaderInfo();
+	VkPipelineShaderStageCreateInfo vertShaderStageInfo = CreateVertexShaderInfo();
+	VkPipelineShaderStageCreateInfo fragShaderStageInfo = CreateFragmentShaderInfo();
 
 	VkPipelineShaderStageCreateInfo shaderStages[] = {
 		vertShaderStageInfo,
@@ -124,8 +127,8 @@ void VulkanBase::createGraphicsPipeline() {
 
 	pipelineInfo.stageCount = 2;
 	pipelineInfo.pStages = shaderStages;
-	pipelineInfo.pVertexInputState = &createVertexInputStateInfo();
-	pipelineInfo.pInputAssemblyState = &createInputAssemblyStateInfo();
+	pipelineInfo.pVertexInputState = &CreateVertexInputStateInfo();
+	pipelineInfo.pInputAssemblyState = &CreateInputAssemblyStateInfo();
 
 	pipelineInfo.pViewportState = &viewportState;
 	pipelineInfo.pRasterizationState = &rasterizer;

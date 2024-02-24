@@ -43,7 +43,7 @@ struct SwapChainSupportDetails {
 class VulkanBase {
 public:
 	void run() {
-		initWindow();
+		InitWindow();
 		initVulkan();
 		mainLoop();
 		cleanup();
@@ -67,7 +67,7 @@ private:
 		// week 03
 		createRenderPass();
 		createGraphicsPipeline();
-		createFrameBuffers();
+		CreateFrameBuffers();
 		// week 02
 		createCommandPool();
 		createCommandBuffer();
@@ -135,13 +135,13 @@ private:
 	// with the correct internal state.
 
 	GLFWwindow* window;
-	void initWindow();
+	void InitWindow();
 
-	VkPipelineShaderStageCreateInfo createFragmentShaderInfo();
-	VkPipelineShaderStageCreateInfo createVertexShaderInfo();
-	VkPipelineVertexInputStateCreateInfo createVertexInputStateInfo();
-	VkPipelineInputAssemblyStateCreateInfo createInputAssemblyStateInfo();
-	VkShaderModule createShaderModule(const std::vector<char>& code);
+	VkPipelineShaderStageCreateInfo CreateFragmentShaderInfo();
+	VkPipelineShaderStageCreateInfo CreateVertexShaderInfo();
+	VkPipelineVertexInputStateCreateInfo CreateVertexInputStateInfo();
+	VkPipelineInputAssemblyStateCreateInfo CreateInputAssemblyStateInfo();
+	VkShaderModule CreateShaderModule(const std::vector<char>& code);
 
 	void drawScene();
 
@@ -168,7 +168,7 @@ private:
 	VkPipeline graphicsPipeline;
 	VkRenderPass renderPass;
 
-	void createFrameBuffers();
+	void CreateFrameBuffers();
 	void createRenderPass();
 	void createGraphicsPipeline();
 

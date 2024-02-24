@@ -1,15 +1,17 @@
 #include "vulkanbase/VulkanBase.h"
 
-void VulkanBase::initWindow() {
+void VulkanBase::InitWindow()
+{
 	glfwInit();
 	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 	window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan", nullptr, nullptr);
 }
 
-VkPipelineShaderStageCreateInfo VulkanBase::createFragmentShaderInfo() {
-	std::vector<char> fragShaderCode = readFile("shaders/shader.frag.spv");
-	VkShaderModule fragShaderModule = createShaderModule(fragShaderCode);
+VkPipelineShaderStageCreateInfo VulkanBase::CreateFragmentShaderInfo()
+{
+	const std::vector<char> fragShaderCode{ ReadFile("shaders/shader.frag.spv") };
+	const VkShaderModule fragShaderModule{ CreateShaderModule(fragShaderCode) };
 
 	VkPipelineShaderStageCreateInfo fragShaderStageInfo{};
 	fragShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
@@ -20,9 +22,10 @@ VkPipelineShaderStageCreateInfo VulkanBase::createFragmentShaderInfo() {
 	return fragShaderStageInfo;
 }
 
-VkPipelineShaderStageCreateInfo VulkanBase::createVertexShaderInfo() {
-	std::vector<char> vertShaderCode = readFile("shaders/shader.vert.spv");
-	VkShaderModule vertShaderModule = createShaderModule(vertShaderCode);
+VkPipelineShaderStageCreateInfo VulkanBase::CreateVertexShaderInfo()
+{
+	const std::vector<char> vertShaderCode{ ReadFile("shaders/shader.vert.spv") };
+	const VkShaderModule vertShaderModule{ CreateShaderModule(vertShaderCode) };
 
 	VkPipelineShaderStageCreateInfo vertShaderStageInfo{};
 	vertShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
@@ -32,7 +35,7 @@ VkPipelineShaderStageCreateInfo VulkanBase::createVertexShaderInfo() {
 	return vertShaderStageInfo;
 }
 
-VkPipelineVertexInputStateCreateInfo VulkanBase::createVertexInputStateInfo()
+VkPipelineVertexInputStateCreateInfo VulkanBase::CreateVertexInputStateInfo()
 {
 	VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
 	vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
@@ -41,7 +44,7 @@ VkPipelineVertexInputStateCreateInfo VulkanBase::createVertexInputStateInfo()
 	return vertexInputInfo;
 }
 
-VkPipelineInputAssemblyStateCreateInfo VulkanBase::createInputAssemblyStateInfo()
+VkPipelineInputAssemblyStateCreateInfo VulkanBase::CreateInputAssemblyStateInfo()
 {
 	VkPipelineInputAssemblyStateCreateInfo inputAssembly{};
 	inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
@@ -50,7 +53,8 @@ VkPipelineInputAssemblyStateCreateInfo VulkanBase::createInputAssemblyStateInfo(
 	return inputAssembly;
 }
 
-VkShaderModule VulkanBase::createShaderModule(const std::vector<char>& code) {
+VkShaderModule VulkanBase::CreateShaderModule(const std::vector<char>& code)
+{
 	VkShaderModuleCreateInfo createInfo{};
 	createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
 	createInfo.codeSize = code.size();
@@ -64,6 +68,7 @@ VkShaderModule VulkanBase::createShaderModule(const std::vector<char>& code) {
 	return shaderModule;
 }
 
-void VulkanBase::drawScene() {
+void VulkanBase::drawScene()
+{
 	vkCmdDraw(commandBuffer, 6, 1, 0, 0);
 }
