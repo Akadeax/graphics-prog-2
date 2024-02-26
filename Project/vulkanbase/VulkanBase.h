@@ -2,19 +2,15 @@
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
-#include <GLFW/glfw3native.h>
 #include "VulkanUtil.h"
 
 #include <iostream>
 #include <stdexcept>
 #include <vector>
-#include <cstring>
-#include <cstdlib>
 #include <cstdint>
 #include <optional>
-#include <set>
-#include <limits>
-#include <algorithm>
+
+#include "GP2Shader.h"
 
 
 const std::vector<const char*> validationLayers = {
@@ -65,6 +61,8 @@ private:
 		createImageViews();
 		
 		// week 03
+		m_GradientShader.Initialize(device);
+
 		createRenderPass();
 		createGraphicsPipeline();
 		CreateFrameBuffers();
@@ -126,22 +124,14 @@ private:
 		}
 	}
 
-	
 
-	// Week 01: 
-	// Actual window
-	// simple fragment + vertex shader creation functions
-	// These 5 functions should be refactored into a separate C++ class
-	// with the correct internal state.
+	GP2Shader m_GradientShader{ 
+		"shaders/shader.vert.spv",
+		"shaders/shader.frag.spv"
+	};
 
 	GLFWwindow* window;
 	void InitWindow();
-
-	VkPipelineShaderStageCreateInfo CreateFragmentShaderInfo();
-	VkPipelineShaderStageCreateInfo CreateVertexShaderInfo();
-	VkPipelineVertexInputStateCreateInfo CreateVertexInputStateInfo();
-	VkPipelineInputAssemblyStateCreateInfo CreateInputAssemblyStateInfo();
-	VkShaderModule CreateShaderModule(const std::vector<char>& code);
 
 	void drawScene();
 
